@@ -3,12 +3,12 @@ FROM php:7.4-fpm-bullseye
 LABEL org.opencontainers.image.title="HK2 Magento PHP 7.4 FPM" \
       org.opencontainers.image.description="PHP 7.4 FPM environment optimized for Magento 2" \
       org.opencontainers.image.source="https://github.com/basantmandal/docker-magento2-php74" \
-      org.opencontainers.image.version="3.0" \
+      org.opencontainers.image.version="3.0.1" \
       org.opencontainers.image.authors="Basant Mandal" \
       org.opencontainers.image.url="https://github.com/basantmandal/docker-magento2-php74" \
       org.opencontainers.image.documentation="https://github.com/basantmandal/docker-magento2-php74#readme" \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.created="2026-04-27T00:00:00Z" \
+      org.opencontainers.image.created="2026-06-10T00:00:00Z" \
       org.opencontainers.image.revision="git-commit-sha"
 
 USER root
@@ -123,9 +123,10 @@ RUN echo "memory_limit=${PHP_MEMORY_LIMIT}" > /usr/local/etc/php/conf.d/zz-custo
     && echo "upload_max_filesize=${PHP_UPLOAD_MAX_FILESIZE}" >> /usr/local/etc/php/conf.d/zz-custom.ini \
     && echo "post_max_size=${PHP_POST_MAX_SIZE}" >> /usr/local/etc/php/conf.d/zz-custom.ini \
     && echo "max_execution_time=${PHP_MAX_EXECUTION_TIME}" >> /usr/local/etc/php/conf.d/zz-custom.ini \
-    && echo "date.timezone=${TZ}" >> /usr/local/etc/php/conf.d/zz-custom.ini \
+    && echo "date.timezone=${TZ:-Asia/Kolkata}" >> /usr/local/etc/php/conf.d/zz-custom.ini \
     && echo "opcache.enable=1" >> /usr/local/etc/php/conf.d/zz-custom.ini \
-    && echo "opcache.validate_timestamps=0" >> /usr/local/etc/php/conf.d/zz-custom.ini \
+    && echo "opcache.validate_timestamps=1" >> /usr/local/etc/php/conf.d/zz-custom.ini \
+    && echo "opcache.revalidate_freq=0" >> /usr/local/etc/php/conf.d/zz-custom.ini \
     && echo "opcache.memory_consumption=512" >> /usr/local/etc/php/conf.d/zz-custom.ini
 
 # -----------------------------
